@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Peta Kecamatan Sumur Provinsi Banten</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.6.0/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.6.0/mapbox-gl.js"></script>
+<style>
+body { margin: 0; padding: 0; }
+#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+</style>
+
+
+</head>
+<body>
+    <!-- Load the `mapbox-gl-geocoder` plugin. -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.css" type="text/css">
+<style>
+    #menu {
+    position: absolute;
+    background: #efefef;
+    padding: 10px;
+    font-family: 'Open Sans', sans-serif;
+    }
+</style>
+
+<style type="text/css">
+    #info {
+    display: table;
+    position: relative;
+    margin: 0px auto;
+    word-wrap: anywhere;
+    white-space: pre-wrap;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    font-size: 12px;
+    text-align: center;
+    color: #222;
+    background: #fff;
+    }
+</style>
+
+<style>
+    .mapboxgl-popup {
+    max-width: 400px;
+    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    }
+</style>
+
+<div id="map"></div>
+
+<div id="menu">
+    <input id="satellite-v9" type="radio" name="rtoggle" value="satellite" checked="checked">
+    <!-- See a list of Mapbox-hosted public styles at -->
+    <!-- https://docs.mapbox.com/api/maps/styles/#mapbox-styles -->
+    <label for="satellite-v9">satellite</label>
+    <input id="light-v10" type="radio" name="rtoggle" value="light">
+    <label for="light-v10">light</label>
+    <input id="dark-v10" type="radio" name="rtoggle" value="dark">
+    <label for="dark-v10">dark</label>
+    <input id="streets-v11" type="radio" name="rtoggle" value="streets">
+    <label for="streets-v11">streets</label>
+    <input id="outdoors-v11" type="radio" name="rtoggle" value="outdoors">
+    <label for="outdoors-v11">outdoors</label>
+</div>
+
+<pre id="info"></pre>
+<script>
+	// TO MAKE THE MAP APPEAR YOU MUST
+	// ADD YOUR ACCESS TOKEN FROM
+	// https://account.mapbox.com
+	mapboxgl.accessToken = 'pk.eyJ1IjoiZHdpbHVzaSIsImEiOiJja3Z0Nzk2MmMwajIwMm9vMm11bWpuZWYwIn0.i_rWBOcqlC56LhKrYRL8Og';
+    const map = new mapboxgl.Map({
+        container: 'map', // container ID
+        style: 'mapbox://styles/mapbox/streets-v11', // style URL
+        center: [105.53010632463075, -6.7311930578299], // starting position [lng, lat]
+        zoom: 10 // starting zoom
+    });
+    // Add the control to the map.
+        map.addControl(
+        new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl
+        })
+    );
+
+    map.on('mousemove', (e) => {
+        document.getElementById('info').innerHTML =
+        // `e.point` is the x, y coordinates of the `mousemove` event
+        // relative to the top-left corner of the map.
+        JSON.stringify(e.point) +
+        '<br />' +
+        // `e.lngLat` is the longitude, latitude geographical position of the event.
+        JSON.stringify(e.lngLat.wrap());
+    });
+
+    // Add zoom and rotation controls to the map.
+        map.addControl(new mapboxgl.NavigationControl());
+
+    const layerList = document.getElementById('menu');
+    const inputs = layerList.getElementsByTagName('input');
+ 
+    for (const input of inputs) {
+        input.onclick = (layer) => {
+            const layerId = layer.target.id;
+            map.setStyle('mapbox://styles/mapbox/' + layerId);
+        };
+    }
+
+    map.on('load', () => {
+    map.addSource('places', {
+                  'type': 'geojson',
+                    'data': {
+                    'type': 'FeatureCollection',
+                    'features': [
+                        {
+                            'type': 'Feature',
+                            'properties': {
+                            'description':
+                            '<strong>Kantor Desa Cigorondong</strong><p>Kantor Desa Cigorondong terletak pada koordinat 105.51268123879437, -6.735998149898032</p>'
+                            },
+                            'geometry': {
+                            'type': 'Point',
+                            'coordinates': [105.51268123879437, -6.735998149898032]
+                            }
+                        },
+                        {
+                            'type': 'Feature',
+                            'properties': {
+                            'description':
+                            '<strong>Kantor Desa Kertajaya</strong><p>Kantor Desa Kertajaya terletak pada koordinat 105.58792487245256, -6.665510352733195 </p>'
+                            },
+                            'geometry': {
+                            'type': 'Point',
+                            'coordinates': [105.58792487245256, -6.665510352733195]
+                            }
+                        },
+                        {
+                            'type': 'Feature',
+                            'properties': {
+                            'description':
+                            '<strong>Kantor Desa Kertamukti</strong><p>Kantor Desa Kertamukti terletak pada koordinat 105.56433643093229, -6.688794202886012</p>'
+                            },
+                            'geometry': {
+                            'type': 'Point',
+                            'coordinates': [105.56433643093229, -6.688794202886012]
+                            }
+                        },
+                        {
+                            'type': 'Feature',
+                            'properties': {
+                            'description':
+                            '<strong>Kantor Desa Sumberjaya</strong><p>Kantor Desa Sumberjaya terletak pada koordinat 105.58399566901332, -6.656438424745042</p>'
+                            },
+                            'geometry': {
+                            'type': 'Point',
+                            'coordinates': [105.58399566901332, -6.656438424745042]
+                            }
+                        },
+                        {
+                            'type': 'Feature',
+                            'properties': {
+                            'description':
+                            "<strong>Kantor Desa Tamanjaya</strong><p>Kantor Desa Tamanjaya terletak pada koordinat 105.50476108084197, -6.779039076844645</p>"
+                            },
+                            'geometry': {
+                            'type': 'Point',
+                            'coordinates': [105.50476108084197, -6.779039076844645]
+                            }
+                        },
+                        {
+                            'type': 'Feature',
+                            'properties': {
+                            'description':
+                            '<strong>Kantor Desa Tunggaljaya</strong><p>Kantor Desa Tunggaljaya terletak pada koordinat 105.52908955157434, -6.725443055427638</p>'
+                            },
+                            'geometry': {
+                            'type': 'Point',
+                            'coordinates': [105.52908955157434, -6.725443055427638]
+                            }
+                        },
+                        {
+                            'type': 'Feature',
+                            'properties': {
+                            'description':
+                            '<strong>Kantor Desa Ujungjaya</strong><p>Kantor Desa Ujungjaya terletak pada koordinat 105.50525763599543, -6.800478982111602</p>'
+                            },
+                            'geometry': {
+                            'type': 'Point',
+                            'coordinates': [105.50525763599543, -6.800478982111602]
+                            }
+                        }
+                    ]
+                }
+            });
+    // Add a layer showing the places.
+    map.addLayer({
+        'id': 'places',
+        'type': 'circle',
+        'source': 'places',
+        'paint': {
+        'circle-color': '#4264fb',
+        'circle-radius': 6,
+        'circle-stroke-width': 2,
+        'circle-stroke-color': '#ffffff'
+        }
+    });
+
+    // Create a popup, but don't add it to the map yet.
+    const popup = new mapboxgl.Popup({
+        closeButton: false,
+        closeOnClick: false
+        });
+    
+    map.on('mouseenter', 'places', (e) => {
+        // Change the cursor style as a UI indicator.
+        map.getCanvas().style.cursor = 'pointer';
+    
+        // Copy coordinates array.
+        const coordinates = e.features[0].geometry.coordinates.slice();
+        const description = e.features[0].properties.description;
+        
+        // Ensure that if the map is zoomed out such that multiple
+        // copies of the feature are visible, the popup appears
+        // over the copy being pointed to.
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
+        
+        // Populate the popup and set its coordinates
+        // based on the feature found.
+        popup.setLngLat(coordinates).setHTML(description).addTo(map);
+        });
+        
+        map.on('mouseleave', 'places', () => {
+        map.getCanvas().style.cursor = '';
+        popup.remove();
+    });
+});
+</script>
+
+</body>
+</html>
