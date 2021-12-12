@@ -3,10 +3,22 @@ const fastify = require('fastify')({ logger: true });
 
 // Register plugins
 fastify.register(require('fastify-static'), require('.config/static').public);
-fastify.register(require('fastify-static'), require('.config/static').css);
-fastify.register(require('fastify-static'), require('.config/static').img);
-fastify.register(require('fastify-static'), require('.config/static').js);
-fastify.register(require('fastify-static'), require('.config/static').mapbox);
+fastify.register(
+  require('fastify-static'),
+  require('./config/static').publicCss  
+);
+fastify.register(
+  require('fastify-static'),
+  require('./config/static').publicImg
+);
+fastify.register(
+  require('fastify-static'),
+  require('./config/static').publicJs
+);
+fastify.register(
+  require('fastify-static'),
+  require('./config/static').publicMapbox
+);
 
 // Declare a route
 fastify.get('/', async (request, reply) => {
